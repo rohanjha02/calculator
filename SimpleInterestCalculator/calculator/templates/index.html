@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Interest Calculator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #65befa; /* Change background color to blue */
+            color: #fff; /* Change text color to white */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: slide-in 0.5s ease-out;
+        }
+        .form-container {
+            padding: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+        }
+        @keyframes slide-in {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1, h2 {
+            text-align: center;
+            color: #196d2c; /* Change heading color to green */
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            color: #000; /* Change label color to black */
+            font-weight: bold; /* Make label text bold */
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-style: italic;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 20px;
+            animation: slide-up 0.5s ease-out;
+        }
+        @keyframes slide-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Simple Interest Calculator</h1>
+
+        <div class="form-container">
+            <form method="POST" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="principal">Principal</label>
+                    {{ form.principal }}
+                </div>
+                <div class="form-group">
+                    <label for="rate">Rate</label>
+                    {{ form.rate }}
+                </div>
+                <div class="form-group">
+                    <label for="time">Time</label>
+                    {{ form.time }}
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Calculate</button>
+            </form>
+        </div>
+
+        <h2>Calculation History</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Principal</th>
+                    <th>Rate</th>
+                    <th>Time</th>
+                    <th>Interest</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for calculation in calculations %}
+                <tr>
+                    <td>{{ calculation.principal }}</td>
+                    <td>{{ calculation.rate }}%</td>
+                    <td>{{ calculation.time }}</td>
+                    <td>{{ calculation.result }}</td>
+                    <td>{{ calculation.timestamp }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="footer">Created by Alwyn Antony Ben 4BSc DS</div>
+</body>
+</html>
